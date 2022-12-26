@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 
 class socialAuthController extends Controller
 {
@@ -30,11 +33,13 @@ class socialAuthController extends Controller
             $newUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
+                // 'password' => $user->password,
                 'google_id' => $user->id
             ]);
             Auth::login($newUser, true);
         }
         return redirect()->to('/dashboard');
+
     }
 
 
